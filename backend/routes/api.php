@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/public/share/{token}', [PublicShareController::class, 'show']);
 Route::get('/public/share/{token}/file', [PublicShareController::class, 'download']);
+Route::get('/public/share/{token}/comments', [PublicShareController::class, 'comments']);
+Route::post('/public/share/{token}/comments', [PublicShareController::class, 'storeComment'])
+    ->middleware('throttle:20,1');
 
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
     ->middleware(['signed', 'throttle:6,1'])

@@ -7,31 +7,31 @@ use Illuminate\Http\Request;
 
 class CorsMiddleware
 {
+    private const ALLOWED_METHODS = 'GET, POST, PUT, PATCH, DELETE, OPTIONS';
+
+    private const ALLOWED_HEADERS = 'Content-Type, Authorization, X-Requested-With';
+
     public function handle(Request $request, Closure $next)
     {
         $origin = $request->headers->get('Origin');
-        $allowed = [
-            'https://frontend-production-190a5.up.railway.app',
-            'http://localhost:8080',
-            'http://127.0.0.1:8080',
-        ];
+        $allowed = config('cors.allowed_origins', []);
 
-        if (in_array($origin, $allowed)) {
-            if ($request->isMethod('OPTIONS')) {
-                return response('', 200)
-                    ->header('Access-Control-Allow-Origin', $origin)
-                    ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-                    ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
-                    ->header('Access-Control-Allow-Credentials', 'true');
-            }
+        if (! in_array($origin, $allowed, true)) {
+            return $next($request);
+        }
 
-            return $next($request)
+        if ($request->isMethod('OPTIONS')) {
+            return response('', 204)
                 ->header('Access-Control-Allow-Origin', $origin)
-                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-                ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+                ->header('Access-Control-Allow-Methods', self::ALLOWED_METHODS)
+                ->header('Access-Control-Allow-Headers', self::ALLOWED_HEADERS)
                 ->header('Access-Control-Allow-Credentials', 'true');
         }
 
-        return $next($request);
+        return $next($request)
+            ->header('Access-Control-Allow-Origin', $origin)
+            ->header('Access-Control-Allow-Methods', self::ALLOWED_METHODS)
+            ->header('Access-Control-Allow-Headers', self::ALLOWED_HEADERS)
+            ->header('Access-Control-Allow-Credentials', 'true');
     }
 }
