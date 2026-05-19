@@ -154,7 +154,6 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Could not send verification email.',
-            'error' => $e->getMessage(), // ← add this temporarily
         ], 503);
     }
 
