@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { usePageTitle } from "@/i18n";
 import { Header } from "@/components/marketing/Header";
 import { Hero } from "@/components/marketing/Hero";
 import { Features } from "@/components/marketing/Features";
@@ -29,6 +30,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  usePageTitle("home.metaTitle");
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />

@@ -2,47 +2,46 @@ import { Link } from "@tanstack/react-router";
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { motion } from "framer-motion";
 import { Heart, Pill, CalendarCheck, TrendingUp } from "lucide-react";
+import { useI18n, type Lang } from "@/i18n";
 
-const heartData = [
-  { d: "P", v: 68 },
-  { d: "O", v: 72 },
-  { d: "T", v: 70 },
-  { d: "C", v: 76 },
-  { d: "P", v: 74 },
-  { d: "S", v: 71 },
-  { d: "Sv", v: 73 },
-];
+const heartValues = [68, 72, 70, 76, 74, 71, 73];
+
+const chartDays: Record<Lang, string[]> = {
+  lv: ["P", "O", "T", "C", "Pk", "S", "Sv"],
+  en: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+};
 
 export function HealthPreview() {
+  const { t, lang } = useI18n();
+  const heartData = chartDays[lang].map((d, i) => ({ d, v: heartValues[i]! }));
+
   return (
-    <div className="relative">
-      {/* Glow */}
+    <div key={lang} className="relative">
       <div className="absolute -inset-8 bg-gradient-primary opacity-20 blur-3xl rounded-full" />
 
-      <div className="relative grid grid-cols-6 grid-rows-6 gap-3 h-[520px]">
-        {/* Main chart card */}
+      <motion.div className="relative grid grid-cols-6 grid-rows-6 gap-3 h-[520px]">
         <motion.div
           whileHover={{ y: -4 }}
           className="col-span-6 row-span-3 rounded-3xl bg-surface-elevated border border-border shadow-elevated p-5 flex flex-col"
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-primary/10 grid place-items-center">
+          <motion.div className="flex items-center justify-between">
+            <motion.div className="flex items-center gap-2.5">
+              <motion.div className="w-9 h-9 rounded-xl bg-primary/10 grid place-items-center">
                 <Heart className="w-4.5 h-4.5 text-primary" />
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Sirds ritms — 7 dienas</p>
+              </motion.div>
+              <motion.div>
+                <p className="text-xs text-muted-foreground">{t("hp.chart.sub")}</p>
                 <p className="font-display text-2xl text-ink leading-none mt-1">
-                  72 <span className="text-sm text-muted-foreground font-sans">bpm</span>
+                  72 <span className="text-sm text-muted-foreground font-sans">{t("hp.chart.bpm")}</span>
                 </p>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
             <span className="text-xs text-primary bg-primary/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1">
-              <TrendingUp className="w-3 h-3" /> Stabils
+              <TrendingUp className="w-3 h-3" /> {t("hp.chart.stable")}
             </span>
-          </div>
+          </motion.div>
 
-          <div className="flex-1 -mx-2 mt-2">
+          <motion.div className="flex-1 -mx-2 mt-2">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={heartData}>
                 <defs>
@@ -67,60 +66,58 @@ export function HealthPreview() {
                 />
               </AreaChart>
             </ResponsiveContainer>
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* Reminder card */}
         <motion.div
           whileHover={{ y: -4 }}
           className="col-span-3 row-span-3 rounded-3xl bg-ink text-background p-5 flex flex-col justify-between"
         >
-          <div className="flex items-center gap-2 text-xs opacity-70">
+          <motion.div className="flex items-center gap-2 text-xs opacity-70">
             <Pill className="w-4 h-4" />
-            Šodien 20:00
-          </div>
-          <div>
-            <p className="font-display text-3xl leading-tight">Vitamīns D</p>
-            <p className="text-sm opacity-70 mt-1">2000 IU · ar maltīti</p>
-          </div>
-          <div className="flex gap-2">
+            {t("hp.pill.today")}
+          </motion.div>
+          <motion.div>
+            <p className="font-display text-3xl leading-tight">{t("hp.pill.name")}</p>
+            <p className="text-sm opacity-70 mt-1">{t("hp.pill.meta")}</p>
+          </motion.div>
+          <motion.div className="flex gap-2">
             <Link
               to="/register"
               className="flex-1 h-9 rounded-full bg-background text-foreground text-xs font-medium grid place-items-center hover:opacity-90 transition"
             >
-              Reģistrēties
+              {t("hp.pill.reg")}
             </Link>
             <Link
               to="/features"
               className="h-9 px-3 rounded-full border border-background/20 text-xs grid place-items-center hover:bg-background/10 transition"
             >
-              Iespējas
+              {t("hp.pill.features")}
             </Link>
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* Appointment */}
         <motion.div
           whileHover={{ y: -4 }}
           className="col-span-3 row-span-3 rounded-3xl bg-warm/40 border border-warm/40 p-5 flex flex-col justify-between"
         >
-          <div className="flex items-center gap-2 text-xs text-warm-foreground/80">
+          <motion.div className="flex items-center gap-2 text-xs text-warm-foreground/80">
             <CalendarCheck className="w-4 h-4" />
-            Rītdien · 14:30
-          </div>
-          <div>
-            <p className="font-display text-2xl text-ink leading-tight">Dr. Bērziņa</p>
-            <p className="text-sm text-warm-foreground/80 mt-1">Kardiologa konsultācija · Rīga</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="flex -space-x-2">
-              <div className="w-7 h-7 rounded-full bg-primary/80 border-2 border-warm/40" />
-              <div className="w-7 h-7 rounded-full bg-accent border-2 border-warm/40" />
-            </div>
-            <span className="text-xs text-warm-foreground/80">+ ārsts saņems</span>
-          </div>
+            {t("hp.appt.when")}
+          </motion.div>
+          <motion.div>
+            <p className="font-display text-2xl text-ink leading-tight">{t("hp.appt.doc")}</p>
+            <p className="text-sm text-warm-foreground/80 mt-1">{t("hp.appt.meta")}</p>
+          </motion.div>
+          <motion.div className="flex items-center gap-2">
+            <motion.div className="flex -space-x-2">
+              <motion.div className="w-7 h-7 rounded-full bg-primary/80 border-2 border-warm/40" />
+              <motion.div className="w-7 h-7 rounded-full bg-accent border-2 border-warm/40" />
+            </motion.div>
+            <span className="text-xs text-warm-foreground/80">{t("hp.appt.note")}</span>
+          </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 }

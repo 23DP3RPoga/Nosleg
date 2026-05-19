@@ -2,14 +2,14 @@
  * Tulkošanas konteksts: bāzes virkņu vārdnīcas (lv/en) + sapludinājums ar `page-messages.ts`.
  * `t(atslēga)` — aktīvā valoda; ja trūkst tulkojuma, kritiens uz latviešu.
  */
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { PAGE_EN, PAGE_LV } from "./page-messages";
 
 export type Lang = "lv" | "en";
 
 type Dict = Record<string, string | string[]>;
 
-const lv: Dict = {
+const landingLv: Dict = {
   // Galvenā navigācija
   "nav.home": "Sākums",
   "nav.features": "Iespējas",
@@ -122,11 +122,10 @@ const lv: Dict = {
   "lang.lv": "Latviešu",
   "lang.en": "Angļu",
 
-  ...PAGE_LV,
 };
 
 /** Angļu valodas bāzes virknes — tās pašas atslēgas kā `lv`, lai `t()` strādā abās valodās. */
-const en: Dict = {
+const landingEn: Dict = {
   "nav.home": "Home",
   "nav.features": "Features",
   "nav.about": "About",
@@ -230,11 +229,13 @@ const en: Dict = {
   "lang.lv": "Latvian",
   "lang.en": "English",
 
-  ...PAGE_EN,
 };
 
-/** Aktīvās valodas vārdnīcas kopā ar `page-messages` papildinājumiem. */
-const dicts: Record<Lang, Dict> = { lv, en };
+/** PAGE_* vispirms, landing virknes pēc tam — lai sākumlapas atslēgas netiek pārrakstītas. */
+const dicts: Record<Lang, Dict> = {
+  lv: { ...PAGE_LV, ...landingLv },
+  en: { ...PAGE_EN, ...landingEn },
+};
 
 type I18nCtx = {
   lang: Lang;
@@ -246,41 +247,44 @@ const Ctx = createContext<I18nCtx | null>(null);
 
 const STORAGE_KEY = "vitalo.lang";
 
+function readInitialLang(): Lang {
+  if (typeof window === "undefined") return "lv";
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY) as Lang | null;
+    if (saved === "lv" || saved === "en") return saved;
+    if (navigator.language.toLowerCase().startsWith("en")) return "en";
+  } catch {
+    /* private režīms / ierobežots localStorage */
+  }
+  return "lv";
+}
+
 /** Saglabā izvēli `localStorage`; bez saglabātas vērtības — pēc pārlūka valodas. */
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("lv");
+  const [lang, setLangState] = useState<Lang>(readInitialLang);
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY) as Lang | null;
-      if (saved === "lv" || saved === "en") {
-        setLangState(saved);
-      } else if (typeof navigator !== "undefined") {
-        const nav = navigator.language.toLowerCase();
-        if (nav.startsWith("en")) setLangState("en");
-      }
-    } catch {
-      /* private režīms / ierobežots localStorage */
-    }
-  }, []);
-
-  const setLang = (l: Lang) => {
+  const setLang = useCallback((l: Lang) => {
     setLangState(l);
     try {
       localStorage.setItem(STORAGE_KEY, l);
     } catch {
       /* skat. augšā */
     }
-  };
+  }, []);
 
-  const t = (key: string): string => {
-    const v = dicts[lang][key];
-    if (typeof v === "string") return v;
-    const fallback = dicts.lv[key];
-    return typeof fallback === "string" ? fallback : key;
-  };
+  const t = useCallback(
+    (key: string): string => {
+      const v = dicts[lang][key];
+      if (typeof v === "string") return v;
+      const fallback = dicts.lv[key];
+      return typeof fallback === "string" ? fallback : key;
+    },
+    [lang],
+  );
 
-  return <Ctx.Provider value={{ lang, setLang, t }}>{children}</Ctx.Provider>;
+  const value = useMemo(() => ({ lang, setLang, t }), [lang, setLang, t]);
+
+  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 
 export function useI18n() {

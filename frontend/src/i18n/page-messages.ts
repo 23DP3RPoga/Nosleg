@@ -19,6 +19,10 @@ export const PAGE_LV: PageDict = {
   "common.user": "lietotāj",
   "common.copyright": "©",
 
+  "home.metaTitle": "Tava veselība, vienuviet",
+  "home.metaDescription":
+    "Vitalo apvieno medicīnisko vēsturi, atgādinājumus un veselības rādītājus vienā drošā platformā.",
+
   "settingsPage.title": "Profila iestatījumi",
   "settingsPage.profile.title": "Profils",
   "settingsPage.profile.desc": "Atjaunini vārdu, kas tiek rādīts sistēmā.",
@@ -546,6 +550,10 @@ export const PAGE_EN: PageDict = {
   "common.backStart": "Back to home",
   "common.user": "user",
   "common.copyright": "©",
+
+  "home.metaTitle": "Your health, all in one place",
+  "home.metaDescription":
+    "Vitalo brings together medical history, reminders and health metrics in one secure platform.",
 
   "settingsPage.title": "Profile settings",
   "settingsPage.profile.title": "Profile",

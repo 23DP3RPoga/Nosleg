@@ -5,9 +5,9 @@ import { HealthPreview } from "./HealthPreview";
 import { useI18n } from "@/i18n";
 
 export function Hero() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
-    <section className="relative overflow-hidden bg-hero">
+    <section key={lang} className="relative overflow-hidden bg-hero">
       <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-16 pb-24 lg:pt-24 lg:pb-32">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6">

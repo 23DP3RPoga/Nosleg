@@ -2,7 +2,7 @@ import { Languages } from "lucide-react";
 import { useI18n, Lang } from "@/i18n";
 
 export function LanguageToggle({ className = "" }: { className?: string }) {
-  const { lang, setLang } = useI18n();
+  const { lang, setLang, t } = useI18n();
 
   const opts: { code: Lang; label: string }[] = [
     { code: "lv", label: "LV" },
@@ -13,7 +13,7 @@ export function LanguageToggle({ className = "" }: { className?: string }) {
     <div
       className={`inline-flex items-center gap-1 rounded-full border border-border bg-surface-elevated/60 p-1 text-xs ${className}`}
       role="group"
-      aria-label="Language"
+      aria-label={t("lang.label")}
     >
       <Languages className="w-3.5 h-3.5 text-muted-foreground ml-2 mr-0.5" />
       {opts.map((o) => (
