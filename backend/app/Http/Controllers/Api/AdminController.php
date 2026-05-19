@@ -9,6 +9,7 @@ use App\Models\HealthDocument;
 use App\Models\Measurement;
 use App\Models\MedicationReminder;
 use App\Models\User;
+use App\Services\DeleteUserAccount;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -67,5 +68,23 @@ class AdminController extends Controller
         $target->update(['is_admin' => $data['is_admin']]);
 
         return response()->json(['ok' => true]);
+    }
+
+    public function destroyUser(Request $request, int $userId): JsonResponse
+    {
+        $actor = $request->user();
+        $target = User::query()->whereKey($userId)->firstOrFail();
+
+        if ($target->id === $actor->id) {
+            return response()->json(['message' => 'Nevar dzēst savu kontu no admin paneļa'], 422);
+        }
+
+        if ($target->is_admin && User::query()->where('is_admin', true)->count() <= 1) {
+            return response()->json(['message' => 'Nevar dzēst pēdējo administratoru'], 422);
+        }
+
+        app(DeleteUserAccount::class)->delete($target);
+
+        return response()->json(['message' => 'Lietotājs ir dzēsts.']);
     }
 }

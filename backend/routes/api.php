@@ -76,5 +76,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/admin/users', [AdminController::class, 'users']);
         Route::get('/admin/stats', [AdminController::class, 'stats']);
         Route::patch('/admin/users/{userId}/admin', [AdminController::class, 'setAdmin']);
+        Route::delete('/admin/users/{userId}', [AdminController::class, 'destroyUser'])
+            ->middleware('throttle:30,1');
     });
 });
