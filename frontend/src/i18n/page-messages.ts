@@ -272,7 +272,7 @@ export const PAGE_LV: PageDict = {
   "dash.verify.title": "Apstiprini e-pasta adresi",
   "dash.verify.p1": "Uz {{email}} vajadzētu būt vēstulei ar saiti.",
   "dash.verify.p2":
-    "Spied saiti vēstulē, tad šeit — „Pārbaudīt statusu”. Ja vēstule nenāk, pārbaudi surogātpasta mapi un backend",
+    "Spied saiti vēstulē, tad šeit — „Pārbaudīt statusu”. Ja vēstule nenāk, pārbaudi arī surogātpasta mapi.",
   "dash.verify.resend": "Nosūtīt vēstuli vēlreiz",
   "dash.verify.recheck": "Pārbaudīt statusu",
   "dash.verify.errSend": "Neizdevās nosūtīt",
@@ -807,7 +807,7 @@ export const PAGE_EN: PageDict = {
   "dash.verify.title": "Confirm your email address",
   "dash.verify.p1": "An email with a link should be sent to {{email}}.",
   "dash.verify.p2":
-    "Open the link in the email, then press “Check status” here. If nothing arrives, check spam and your backend",
+    "Open the link in the email, then press “Check status” here. If nothing arrives, check your spam folder too.",
   "dash.verify.resend": "Resend email",
   "dash.verify.recheck": "Check status",
   "dash.verify.errSend": "Could not send",

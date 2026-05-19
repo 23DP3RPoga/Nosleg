@@ -230,17 +230,12 @@ function VerifyEmailPanel({ email, onRecheck }: { email: string; onRecheck: () =
                 <>
                   {parts[0]}
                   <span className="font-medium text-foreground">{email}</span>
-                  {parts[1] ?? ""}{" "}
-                  {t("dash.verify.p2")}{" "}
-                  <code className="text-xs bg-muted px-1 rounded">.env</code>:{" "}
-                  <code className="text-xs bg-muted px-1 rounded">MAIL_FROM_ADDRESS</code>,{" "}
-                  <code className="text-xs bg-muted px-1 rounded">MAIL_MAILER</code>,{" "}
-                  <code className="text-xs bg-muted px-1 rounded">APP_URL</code>,{" "}
-                  <code className="text-xs bg-muted px-1 rounded">FRONTEND_URL</code>.
+                  {parts[1] ?? ""}
                 </>
               );
             })()}
           </p>
+          <p className="text-sm text-muted-foreground">{t("dash.verify.p2")}</p>
           {msg && <p className="text-sm text-primary bg-primary/10 rounded-xl px-3 py-2">{msg}</p>}
           {err && (
             <p className="text-sm text-destructive bg-destructive/10 rounded-xl px-3 py-2">{err}</p>
