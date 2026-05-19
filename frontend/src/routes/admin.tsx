@@ -9,8 +9,6 @@ import {
   Pill,
   Share2,
   Loader2,
-  ShieldOff,
-  ShieldCheck,
   ArrowLeft,
   Search,
   Trash2,
@@ -109,27 +107,6 @@ function AdminPage() {
       await load();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Neizdevās dzēst lietotāju");
-    } finally {
-      setActingId(null);
-    }
-  };
-
-  const toggleAdmin = async (target: AdminUser) => {
-    if (target.id === user?.id) {
-      setError("Nevar mainīt savu paša admin statusu");
-      return;
-    }
-    setActingId(target.id);
-    setError(null);
-    try {
-      const nextAdmin = !target.roles.includes("admin");
-      await apiFetch(`/api/admin/users/${target.id}/admin`, {
-        method: "PATCH",
-        body: JSON.stringify({ is_admin: nextAdmin }),
-      });
-      await load();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Darbība neizdevās");
     } finally {
       setActingId(null);
     }
@@ -286,28 +263,7 @@ function AdminPage() {
                           </div>
                         </td>
                         <td className="px-5 py-3 text-right">
-                          <div className="inline-flex items-center justify-end gap-2 flex-wrap">
-                            <button
-                              onClick={() => toggleAdmin(u)}
-                              disabled={isSelf || actingId === u.id}
-                              className={`inline-flex items-center gap-1.5 h-9 px-3 rounded-full text-xs font-medium border transition disabled:opacity-50 disabled:cursor-not-allowed ${
-                                isUserAdmin
-                                  ? "border-destructive/40 text-destructive hover:bg-destructive/10"
-                                  : "border-primary/40 text-primary hover:bg-primary/10"
-                              }`}
-                            >
-                              {actingId === u.id ? (
-                                <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                              ) : isUserAdmin ? (
-                                <>
-                                  <ShieldOff className="w-3.5 h-3.5" /> Noņemt admin
-                                </>
-                              ) : (
-                                <>
-                                  <ShieldCheck className="w-3.5 h-3.5" /> Padarīt par admin
-                                </>
-                              )}
-                            </button>
+                          <div className="inline-flex items-center justify-end">
                             <button
                               onClick={() => deleteUser(u)}
                               disabled={isSelf || actingId === u.id}

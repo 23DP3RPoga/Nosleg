@@ -1,6 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout, PageHero } from "@/components/marketing/PageLayout";
-import { Heart, Target, Eye, Sparkles, ArrowRight } from "lucide-react";
+import { Heart, Target, Eye, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -71,31 +71,6 @@ function AboutPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 lg:px-10 py-20 lg:py-28">
-        <div className="grid sm:grid-cols-3 gap-8 text-center">
-          {[
-            { n: "12K+", l: "Lietotāji" },
-            { n: "98%", l: "Lietotāju apmierinātība" },
-            { n: "GDPR", l: "Atbilstība" },
-          ].map((s) => (
-            <div key={s.l}>
-              <p className="font-display text-6xl text-primary">{s.n}</p>
-              <p className="mt-2 text-sm uppercase tracking-wider text-muted-foreground">{s.l}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-16 text-center">
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-foreground text-background font-medium hover:opacity-90 transition group"
-          >
-            Sazināties ar mums
-            <ArrowRight className="w-4 h-4 transition group-hover:translate-x-0.5" />
-          </Link>
         </div>
       </section>
     </PageLayout>
