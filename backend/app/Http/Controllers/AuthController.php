@@ -2,20 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DoctorAppointment;
-use App\Models\DocumentShare;
-use App\Models\HealthDocument;
-use App\Models\Measurement;
-use App\Models\MedicationReminder;
 use App\Models\User;
-use App\Models\UserDoctor;
+use App\Services\DeleteUserAccount;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -139,26 +132,26 @@ class AuthController extends Controller
         ]);
     }
 
-    public function sendVerificationEmail(Request $request): JsonResponse
-    {
-        $user = $request->user();
+  public function sendVerificationEmail(Request $request): JsonResponse
+{
+    $user = $request->user();
 
-        if ($user->hasVerifiedEmail()) {
-            return response()->json(['message' => 'Email is already verified.']);
-        }
-
-        try {
-            $user->sendEmailVerificationNotification();
-        } catch (\Throwable $e) {
-            report($e);
-
-            return response()->json([
-                'message' => 'Could not send verification email. Check mail configuration or try again later.',
-            ], 503);
-        }
-
-        return response()->json(['message' => 'Verification link sent.'], 202);
+    if ($user->hasVerifiedEmail()) {
+        return response()->json(['message' => 'Email is already verified.']);
     }
+
+    try {
+        $user->sendEmailVerificationNotification();
+    } catch (\Throwable $e) {
+        report($e);
+
+        return response()->json([
+            'message' => 'Could not send verification email.',
+        ], 503);
+    }
+
+    return response()->json(['message' => 'Verification link sent.'], 202);
+}
 
     public function me(Request $request): JsonResponse
     {
@@ -214,30 +207,7 @@ class AuthController extends Controller
             ]);
         }
 
-        DB::transaction(function () use ($user) {
-            $docs = HealthDocument::query()->where('user_id', $user->id)->get();
-            $docIds = $docs->pluck('id');
-
-            if ($docIds->isNotEmpty()) {
-                DocumentShare::query()->whereIn('document_id', $docIds)->delete();
-            }
-            DocumentShare::query()->where('user_id', $user->id)->delete();
-
-            foreach ($docs as $doc) {
-                if ($doc->file_path && Storage::disk('local')->exists($doc->file_path)) {
-                    Storage::disk('local')->delete($doc->file_path);
-                }
-            }
-            HealthDocument::query()->where('user_id', $user->id)->delete();
-
-            Measurement::query()->where('user_id', $user->id)->delete();
-            MedicationReminder::query()->where('user_id', $user->id)->delete();
-            DoctorAppointment::query()->where('user_id', $user->id)->delete();
-            UserDoctor::query()->where('user_id', $user->id)->delete();
-
-            $user->tokens()->delete();
-            $user->delete();
-        });
+        app(DeleteUserAccount::class)->delete($user);
 
         return response()->json([
             'message' => 'Konts ir dzēsts.',

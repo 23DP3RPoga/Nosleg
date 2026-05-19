@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DocumentShare extends Model
 {
@@ -26,5 +27,10 @@ class DocumentShare extends Model
     public function document(): BelongsTo
     {
         return $this->belongsTo(HealthDocument::class, 'document_id');
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(ShareComment::class, 'document_share_id');
     }
 }

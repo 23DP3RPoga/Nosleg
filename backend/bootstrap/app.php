@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CorsMiddleware;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,10 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->prepend(CorsMiddleware::class);
         $middleware->alias([
             'admin' => EnsureUserIsAdmin::class,
         ]);
-        // Token-based SPA: avoid cookie/session + CSRF on /api/* (prevents redirect-to-frontend on validation errors).
         $middleware->api(remove: [
             EnsureFrontendRequestsAreStateful::class,
         ]);
