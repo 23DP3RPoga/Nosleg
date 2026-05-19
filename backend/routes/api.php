@@ -57,6 +57,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/documents', [HealthDocumentController::class, 'store']);
     Route::delete('/documents/{id}', [HealthDocumentController::class, 'destroy']);
     Route::get('/documents/{id}/download', [HealthDocumentController::class, 'download']);
+    Route::get('/documents/{id}/shares', [DocumentShareController::class, 'index']);
 
     Route::get('/medications', [MedicationController::class, 'index']);
     Route::post('/medications', [MedicationController::class, 'store']);

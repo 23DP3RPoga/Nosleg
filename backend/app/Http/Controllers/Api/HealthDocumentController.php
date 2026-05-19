@@ -16,6 +16,9 @@ class HealthDocumentController extends Controller
         $user = $request->user();
         $rows = HealthDocument::query()
             ->where('user_id', $user->id)
+            ->withCount([
+                'shares as active_shares_count' => fn ($q) => $q->where('expires_at', '>', now()),
+            ])
             ->orderByDesc('created_at')
             ->get();
 
@@ -28,6 +31,7 @@ class HealthDocumentController extends Controller
             'size_bytes' => $d->size_bytes,
             'note' => $d->note,
             'created_at' => $d->created_at->toIso8601String(),
+            'active_shares_count' => (int) ($d->active_shares_count ?? 0),
         ])->values());
     }
 

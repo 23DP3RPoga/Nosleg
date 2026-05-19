@@ -12,6 +12,7 @@ import {
 import { z } from "zod";
 import { apiFetch, apiUpload, fetchAuthorizedBlob } from "@/lib/api";
 import { documentMetaSchema } from "@/auth";
+import { useI18n } from "@/i18n";
 import { SectionCard } from "./DashboardTabs";
 import { ShareDialog } from "./ShareDialog";
 
@@ -24,6 +25,7 @@ type DocRow = {
   size_bytes: number | null;
   note: string | null;
   created_at: string;
+  active_shares_count: number;
 };
 
 const CATEGORIES: { value: "lab" | "prescription" | "image" | "report" | "other"; label: string }[] = [
@@ -44,6 +46,7 @@ function fmtSize(b: number | null) {
 }
 
 export function DocumentsPanel() {
+  const { t } = useI18n();
   const [items, setItems] = useState<DocRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -240,6 +243,12 @@ export function DocumentsPanel() {
                       {cat} · {fmtSize(d.size_bytes)} ·{" "}
                       {new Date(d.created_at).toLocaleDateString("lv-LV")}
                       {d.note && ` · ${d.note}`}
+                      {d.active_shares_count > 0 &&
+                        ` · ${t(
+                          d.active_shares_count === 1
+                            ? "dash.doc.activeLinks"
+                            : "dash.doc.activeLinksMany",
+                        ).replace("{{count}}", String(d.active_shares_count))}`}
                     </p>
                   </div>
                   <button
@@ -251,10 +260,24 @@ export function DocumentsPanel() {
                   </button>
                   <button
                     onClick={() => setSharingDoc(d)}
-                    className="w-9 h-9 rounded-full grid place-items-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition"
+                    className={`w-9 h-9 rounded-full grid place-items-center transition relative ${
+                      d.active_shares_count > 0
+                        ? "text-primary bg-primary/10 hover:bg-primary/15"
+                        : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                    }`}
                     aria-label="Dalīties"
+                    title={
+                      d.active_shares_count > 0
+                        ? t("dash.doc.shareTitleActive")
+                        : t("dash.doc.shareTitleNew")
+                    }
                   >
                     <Share2 className="w-4 h-4" />
+                    {d.active_shares_count > 0 && (
+                      <span className="absolute -top-0.5 -right-0.5 min-w-[14px] h-[14px] px-0.5 rounded-full bg-primary text-[9px] font-bold text-primary-foreground grid place-items-center">
+                        {d.active_shares_count}
+                      </span>
+                    )}
                   </button>
                   <button
                     onClick={() => remove(d)}
@@ -274,7 +297,10 @@ export function DocumentsPanel() {
         <ShareDialog
           documentId={sharingDoc.id}
           documentTitle={sharingDoc.title}
-          onClose={() => setSharingDoc(null)}
+          onClose={() => {
+            setSharingDoc(null);
+            reload();
+          }}
         />
       )}
     </div>
