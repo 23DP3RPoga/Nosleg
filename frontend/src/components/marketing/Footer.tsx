@@ -45,9 +45,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+        <div className="mt-12 pt-6 border-t border-border text-xs text-muted-foreground">
           <p>© {new Date().getFullYear()} Vitalo. {t("footer.copyright")}</p>
-          <p>{t("footer.made")}</p>
         </div>
       </div>
     </footer>

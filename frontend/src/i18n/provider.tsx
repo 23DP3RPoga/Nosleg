@@ -99,7 +99,6 @@ const lv: Dict = {
   "footer.privacy": "Privātums",
   "footer.terms": "Noteikumi",
   "footer.copyright": "Visas tiesības aizsargātas.",
-  "footer.made": "Veidots ar rūpēm Latvijā.",
 
   // Valodas pārslēdzējs
   "lang.label": "Valoda",
@@ -193,7 +192,6 @@ const en: Dict = {
   "footer.privacy": "Privacy",
   "footer.terms": "Terms",
   "footer.copyright": "All rights reserved.",
-  "footer.made": "Built with care in Latvia.",
 
   "lang.label": "Language",
   "lang.lv": "Latvian",

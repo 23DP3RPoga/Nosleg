@@ -162,11 +162,7 @@ export const PAGE_LV: PageDict = {
   "contact.channel.office": "Birojs",
   "contact.channel.officeAddr": "Brīvības iela 40, Rīga, LV-1050",
   "contact.loadingEmail": "ielādē…",
-  "contact.formIntroBefore":
-    "Ziņa tiek nosūtīta uz to pašu e-pasta kastīti, no kuras sistēma sūta apstiprinājuma vēstules (pēc noklusējuma ",
-  "contact.formIntroAfter": ").",
   "contact.formTitle": "Sūti mums ziņu",
-  "contact.supportInboxHint": "Ziņa no formas nonāk uz",
   "contact.field.name": "Vārds",
   "contact.field.email": "E-pasts",
   "contact.field.subject": "Tēma",
@@ -702,11 +698,7 @@ export const PAGE_EN: PageDict = {
   "contact.channel.office": "Office",
   "contact.channel.officeAddr": "Brīvības iela 40, Rīga, LV-1050",
   "contact.loadingEmail": "loading…",
-  "contact.formIntroBefore":
-    "Messages go to the same inbox the system uses for verification emails (by default ",
-  "contact.formIntroAfter": ").",
   "contact.formTitle": "Send us a message",
-  "contact.supportInboxHint": "Form submissions go to",
   "contact.field.name": "Name",
   "contact.field.email": "Email",
   "contact.field.subject": "Subject",

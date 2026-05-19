@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout, PageHero } from "@/components/marketing/PageLayout";
-import { Mail, MapPin, MessageCircle, Send, Loader2 } from "lucide-react";
+import { Mail, MapPin, Send, Loader2 } from "lucide-react";
 import { useState, useEffect, FormEvent, useMemo } from "react";
 import { API_BASE_URL, apiFetch } from "@/lib/api";
 import { useI18n, usePageTitle } from "@/i18n";
@@ -66,14 +66,6 @@ function ContactPage() {
         icon: Mail,
         title: t("contact.channel.email"),
         value: supportEmail ?? t("contact.loadingEmail"),
-        href: supportEmail ? `mailto:${supportEmail}` : undefined,
-      },
-      {
-        icon: MessageCircle,
-        title: t("contact.channel.support"),
-        value: supportEmail
-          ? `${t("contact.supportInboxHint")} ${supportEmail}`
-          : t("contact.channel.supportFallback"),
         href: supportEmail ? `mailto:${supportEmail}` : undefined,
       },
       { icon: MapPin, title: t("contact.channel.office"), value: t("contact.channel.officeAddr") },
@@ -155,11 +147,6 @@ function ContactPage() {
               className="p-8 lg:p-10 rounded-3xl bg-surface-elevated border border-border shadow-soft space-y-5"
             >
               <h2 className="font-display text-2xl text-ink">{t("contact.formTitle")}</h2>
-              <p className="text-sm text-muted-foreground">
-                {t("contact.formIntroBefore")}
-                <code className="text-xs bg-muted px-1 rounded">MAIL_FROM_ADDRESS</code>
-                {t("contact.formIntroAfter")}
-              </p>
 
               {error && (
                 <div className="p-3 rounded-2xl bg-destructive/10 text-destructive text-sm">

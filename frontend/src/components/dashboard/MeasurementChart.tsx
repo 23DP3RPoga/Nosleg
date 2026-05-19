@@ -23,10 +23,10 @@ type Row = {
 };
 
 const COLORS: Record<MeasurementType, { primary: string; secondary?: string; label: string; unit: string }> = {
-  bp: { primary: "hsl(var(--primary))", secondary: "hsl(var(--destructive))", label: "Asinsspiediens", unit: "mmHg" },
-  heart: { primary: "hsl(var(--destructive))", label: "Sirds ritms", unit: "sit/min" },
-  glucose: { primary: "hsl(var(--warning, 38 92% 50%))", label: "Glikoze", unit: "mmol/L" },
-  weight: { primary: "hsl(var(--accent-foreground))", label: "Svars", unit: "kg" },
+  bp: { primary: "var(--chart-1)", secondary: "var(--chart-4)", label: "Asinsspiediens", unit: "mmHg" },
+  heart: { primary: "var(--chart-4)", label: "Sirds ritms", unit: "sit/min" },
+  glucose: { primary: "var(--chart-2)", label: "Glikoze", unit: "mmol/L" },
+  weight: { primary: "var(--chart-3)", label: "Svars", unit: "kg" },
 };
 
 export function MeasurementChart({
@@ -46,9 +46,9 @@ export function MeasurementChart({
           day: "numeric",
           month: "short",
         }),
-        systolic: r.systolic,
-        diastolic: r.diastolic,
-        value: r.value,
+        systolic: r.systolic != null ? Number(r.systolic) : null,
+        diastolic: r.diastolic != null ? Number(r.diastolic) : null,
+        value: r.value != null ? Number(r.value) : null,
       }));
   }, [rows, type]);
 
@@ -69,21 +69,21 @@ export function MeasurementChart({
       <div className="h-64 -mx-2">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 10, right: 16, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
             <XAxis
               dataKey="date"
-              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
-              axisLine={{ stroke: "hsl(var(--border))" }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
+              axisLine={{ stroke: "var(--border)" }}
             />
             <YAxis
-              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
-              axisLine={{ stroke: "hsl(var(--border))" }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
+              axisLine={{ stroke: "var(--border)" }}
               width={40}
             />
             <Tooltip
               contentStyle={{
-                background: "hsl(var(--surface-elevated, var(--background)))",
-                border: "1px solid hsl(var(--border))",
+                background: "var(--surface-elevated)",
+                border: "1px solid var(--border)",
                 borderRadius: 12,
                 fontSize: 12,
               }}
