@@ -3,7 +3,6 @@ import { Header } from "@/components/marketing/Header";
 import { Hero } from "@/components/marketing/Hero";
 import { Features } from "@/components/marketing/Features";
 import { DashboardSection } from "@/components/marketing/DashboardSection";
-import { Compare } from "@/components/marketing/Compare";
 import { Faq } from "@/components/marketing/Faq";
 import { Cta } from "@/components/marketing/Cta";
 import { Footer } from "@/components/marketing/Footer";
@@ -36,7 +35,6 @@ function Index() {
         <Hero />
         <Features />
         <DashboardSection />
-        <Compare />
         <Faq />
         <Cta />
       </main>

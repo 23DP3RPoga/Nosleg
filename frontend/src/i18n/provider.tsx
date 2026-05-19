@@ -71,20 +71,6 @@ const lv: Dict = {
   "dash.systolic": "Sistoliskais",
   "dash.diastolic": "Diastoliskais",
 
-  // Salīdzinājumu tabula
-  "compare.eyebrow": "Salīdzinājums",
-  "compare.title.1": "Kāpēc Vitalo, nevis",
-  "compare.title.italic": "esošās platformas",
-  "compare.col.feature": "Iespēja",
-  "compare.partial": "daļēji",
-  "compare.row.1": "Visi veselības dati vienuviet",
-  "compare.row.2": "Viedierīču sinhronizācija",
-  "compare.row.3": "Atgādinājumi par zālēm",
-  "compare.row.4": "Vizualizācijas un tendences",
-  "compare.row.5": "Drošā koplietošana ar ārstu",
-  "compare.row.6": "Moderns dizains",
-  "compare.row.7": "Pieejams Latvijā",
-
   // BUJ
   "faq.eyebrow": "Bieži uzdotie jautājumi",
   "faq.title": "Atbildes uz svarīgāko.",
@@ -145,9 +131,7 @@ const en: Dict = {
     "Vitalo brings together medical history, doctor visits, medication reminders and health metrics in a beautiful, visual view — and lets you securely share with specialists in one click.",
   "hero.cta.primary": "Get started free",
   "hero.cta.secondary": "View demo",
-  "hero.trust.gdpr": "GDPR compliant",
-  "hero.trust.devices": "Apple Watch & Fitbit sync",
-  "hero.trust.noads": "No ads",
+
 
   "features.eyebrow": "Features",
   "features.title.1": "Everything you need for your",
@@ -183,19 +167,6 @@ const en: Dict = {
   "dash.bp": "Blood pressure",
   "dash.systolic": "Systolic",
   "dash.diastolic": "Diastolic",
-
-  "compare.eyebrow": "Comparison",
-  "compare.title.1": "Why Vitalo, not",
-  "compare.title.italic": "existing platforms",
-  "compare.col.feature": "Feature",
-  "compare.partial": "partial",
-  "compare.row.1": "All health data in one place",
-  "compare.row.2": "Device sync",
-  "compare.row.3": "Medication reminders",
-  "compare.row.4": "Visualizations and trends",
-  "compare.row.5": "Secure sharing with a doctor",
-  "compare.row.6": "Modern design",
-  "compare.row.7": "Available in Latvia",
 
   "faq.eyebrow": "Frequently asked questions",
   "faq.title": "Answers to the most important.",

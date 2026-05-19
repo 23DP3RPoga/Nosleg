@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ShieldCheck, HeartPulse, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { HealthPreview } from "./HealthPreview";
 import { useI18n } from "@/i18n";
 
@@ -60,26 +60,6 @@ export function Hero() {
               >
                 {t("hero.cta.secondary")}
               </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="mt-10 flex flex-wrap items-center gap-6 text-xs text-muted-foreground"
-            >
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-primary" />
-                {t("hero.trust.gdpr")}
-              </div>
-              <div className="flex items-center gap-2">
-                <HeartPulse className="w-4 h-4 text-primary" />
-                {t("hero.trust.devices")}
-              </div>
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-primary" />
-                {t("hero.trust.noads")}
-              </div>
             </motion.div>
           </div>
 
