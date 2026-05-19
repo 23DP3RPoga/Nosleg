@@ -139,26 +139,27 @@ class AuthController extends Controller
         ]);
     }
 
-    public function sendVerificationEmail(Request $request): JsonResponse
-    {
-        $user = $request->user();
+  public function sendVerificationEmail(Request $request): JsonResponse
+{
+    $user = $request->user();
 
-        if ($user->hasVerifiedEmail()) {
-            return response()->json(['message' => 'Email is already verified.']);
-        }
-
-        try {
-            $user->sendEmailVerificationNotification();
-        } catch (\Throwable $e) {
-            report($e);
-
-            return response()->json([
-                'message' => 'Could not send verification email. Check mail configuration or try again later.',
-            ], 503);
-        }
-
-        return response()->json(['message' => 'Verification link sent.'], 202);
+    if ($user->hasVerifiedEmail()) {
+        return response()->json(['message' => 'Email is already verified.']);
     }
+
+    try {
+        $user->sendEmailVerificationNotification();
+    } catch (\Throwable $e) {
+        report($e);
+
+        return response()->json([
+            'message' => 'Could not send verification email.',
+            'error' => $e->getMessage(), // ← add this temporarily
+        ], 503);
+    }
+
+    return response()->json(['message' => 'Verification link sent.'], 202);
+}
 
     public function me(Request $request): JsonResponse
     {
