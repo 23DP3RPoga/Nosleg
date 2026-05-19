@@ -32,9 +32,7 @@ const lv: Dict = {
     "Vitalo apvieno medicīnisko vēsturi, ārstu vizītes, zāļu atgādinājumus un veselības rādītājus skaistā, vizuālā skatā — un ļauj droši dalīties ar speciālistiem ar vienu klikšķi.",
   "hero.cta.primary": "Sākt bez maksas",
   "hero.cta.secondary": "Apskatīt demo",
-  "hero.trust.gdpr": "GDPR atbilstība",
-  "hero.trust.devices": "Apple Watch & Fitbit sinhronizācija",
-  "hero.trust.noads": "Bez reklāmām",
+
 
   // Iespēju sadaļa (landing)
   "features.eyebrow": "Iespējas",
