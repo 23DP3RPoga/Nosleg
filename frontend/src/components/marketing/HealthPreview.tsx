@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { motion } from "framer-motion";
 import { Heart, Pill, CalendarCheck, TrendingUp } from "lucide-react";
+import { useI18n } from "@/i18n";
 
 const heartData = [
   { d: "P", v: 68 },
@@ -14,6 +15,8 @@ const heartData = [
 ];
 
 export function HealthPreview() {
+  const { t } = useI18n();
+
   return (
     <div className="relative">
       {/* Glow */}
@@ -31,14 +34,14 @@ export function HealthPreview() {
                 <Heart className="w-4.5 h-4.5 text-primary" />
               </div>
               <div>
-                <p className="text-xs text-muted-foreground">Sirds ritms — 7 dienas</p>
+                <p className="text-xs text-muted-foreground">{t("hp.chart.sub")}</p>
                 <p className="font-display text-2xl text-ink leading-none mt-1">
-                  72 <span className="text-sm text-muted-foreground font-sans">bpm</span>
+                  72 <span className="text-sm text-muted-foreground font-sans">{t("hp.chart.bpm")}</span>
                 </p>
               </div>
             </div>
             <span className="text-xs text-primary bg-primary/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1">
-              <TrendingUp className="w-3 h-3" /> Stabils
+              <TrendingUp className="w-3 h-3" /> {t("hp.chart.stable")}
             </span>
           </div>
 
@@ -77,24 +80,24 @@ export function HealthPreview() {
         >
           <div className="flex items-center gap-2 text-xs opacity-70">
             <Pill className="w-4 h-4" />
-            Šodien 20:00
+            {t("hp.pill.today")}
           </div>
           <div>
-            <p className="font-display text-3xl leading-tight">Vitamīns D</p>
-            <p className="text-sm opacity-70 mt-1">2000 IU · ar maltīti</p>
+            <p className="font-display text-3xl leading-tight">{t("hp.pill.name")}</p>
+            <p className="text-sm opacity-70 mt-1">{t("hp.pill.meta")}</p>
           </div>
           <div className="flex gap-2">
             <Link
               to="/register"
               className="flex-1 h-9 rounded-full bg-background text-foreground text-xs font-medium grid place-items-center hover:opacity-90 transition"
             >
-              Reģistrēties
+              {t("hp.pill.reg")}
             </Link>
             <Link
               to="/features"
               className="h-9 px-3 rounded-full border border-background/20 text-xs grid place-items-center hover:bg-background/10 transition"
             >
-              Iespējas
+              {t("hp.pill.features")}
             </Link>
           </div>
         </motion.div>
@@ -106,18 +109,18 @@ export function HealthPreview() {
         >
           <div className="flex items-center gap-2 text-xs text-warm-foreground/80">
             <CalendarCheck className="w-4 h-4" />
-            Rītdien · 14:30
+            {t("hp.appt.when")}
           </div>
           <div>
-            <p className="font-display text-2xl text-ink leading-tight">Dr. Bērziņa</p>
-            <p className="text-sm text-warm-foreground/80 mt-1">Kardiologa konsultācija · Rīga</p>
+            <p className="font-display text-2xl text-ink leading-tight">{t("hp.appt.doc")}</p>
+            <p className="text-sm text-warm-foreground/80 mt-1">{t("hp.appt.meta")}</p>
           </div>
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2">
               <div className="w-7 h-7 rounded-full bg-primary/80 border-2 border-warm/40" />
               <div className="w-7 h-7 rounded-full bg-accent border-2 border-warm/40" />
             </div>
-            <span className="text-xs text-warm-foreground/80">+ ārsts saņems</span>
+            <span className="text-xs text-warm-foreground/80">{t("hp.appt.note")}</span>
           </div>
         </motion.div>
       </div>
