@@ -2,7 +2,7 @@
 
 > Moderna tīmekļa lietotne veselības rādītāju uzskaitei, medicīnas dokumentu pārvaldībai, ārstu vizīšu plānošanai un zāļu atgādinājumiem — izstrādāta ar Laravel un React.
 
-🌐 **Dzīvā demo:** https://frontend-production-190a5.up.railway.app
+**Dzīvā demo:** https://frontend-production-190a5.up.railway.app
 
 ---
 
