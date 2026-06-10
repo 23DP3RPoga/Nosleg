@@ -115,8 +115,8 @@ DB_DATABASE=vitalo
 DB_USERNAME=root
 DB_PASSWORD=
 
-MAIL_MAILER=log        # vai: resend
-RESEND_API_KEY=        # tavs Resend atslēgas kods
+MAIL_MAILER=log        
+RESEND_API_KEY=        
 
 SANCTUM_STATEFUL_DOMAINS=localhost:8080
 ```
