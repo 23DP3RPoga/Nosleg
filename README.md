@@ -142,10 +142,5 @@ Lietotne izvietota [Railway](https://railway.app) platformā ar trim pakalpojumi
 - **Backend** — PHP + Laravel (`php artisan migrate --force && php artisan serve`)
 - **MySQL** — Railway pārvaldīta datu bāze
 
-Galvenie Railway vides mainīgie:
-```env
-DB_HOST=mysql.railway.internal
-MAIL_MAILER=resend
-RESEND_API_KEY=tavs_atslēgas_kods
-APP_ENV=production
-```
+
+
