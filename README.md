@@ -8,15 +8,15 @@
 
 ## Funkcionalitāte
 
-- 📊 **Veselības mērījumi** — Asinsspiediens, sirds ritms, glikoze, svars ar grafikiem
-- 📁 **Dokumentu glabātuve** — Medicīnas failu augšupielāde un kategorēšana (analīzes, receptes, ārsta izraksti)
-- 🔗 **Drošā koplietošana** — Dokumentu koplietošana ar laika ierobežojuma saitēm (saņēmējam nav vajadzīgs konts)
-- 💊 **Zāļu atgādinājumi** — Grafika pārvaldība ar biežumu, devām un lietošanas laikiem
-- 🗓️ **Ārstu vizītes** — Vizīšu plānošana un pārvaldība
-- 🔍 **Ārstu katalogs** — Meklēšana pēc specialitātes, savu ārstu saglabāšana
-- 📄 **PDF eksports** — Mērījumu vēstures eksports formatētā PDF failā
-- 🔐 **Administratora panelis** — Lietotāju pārvaldība un platformas statistika
-- 🌍 **Divvalodu saskarne** — Latviešu un angļu valoda
+- **Veselības mērījumi** — Asinsspiediens, sirds ritms, glikoze, svars ar grafikiem
+-  **Dokumentu glabātuve** — Medicīnas failu augšupielāde un kategorēšana (analīzes, receptes, ārsta izraksti)
+-  **Drošā koplietošana** — Dokumentu koplietošana ar laika ierobežojuma saitēm (saņēmējam nav vajadzīgs konts)
+-  **Zāļu atgādinājumi** — Grafika pārvaldība ar biežumu, devām un lietošanas laikiem
+-  **Ārstu vizītes** — Vizīšu plānošana un pārvaldība
+- **Ārstu katalogs** — Meklēšana pēc specialitātes, savu ārstu saglabāšana
+-  **PDF eksports** — Mērījumu vēstures eksports formatētā PDF failā
+-  **Administratora panelis** — Lietotāju pārvaldība un platformas statistika
+-  **Divvalodu saskarne** — Latviešu un angļu valoda
 
 ---
 
